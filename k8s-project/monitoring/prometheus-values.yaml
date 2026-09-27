@@ -1,0 +1,22 @@
+# Used with: helm install prometheus prometheus-community/kube-prometheus-stack -f prometheus-values.yaml
+grafana:
+  enabled: true
+  adminPassword: "changeme"   # override via --set or a Secret in real deployments
+  persistence:
+    enabled: true
+    size: 5Gi
+
+prometheus:
+  prometheusSpec:
+    retention: 15d
+    resources:
+      requests:
+        cpu: 200m
+        memory: 512Mi
+      limits:
+        cpu: 1
+        memory: 1Gi
+    serviceMonitorSelectorNilUsesHelmValues: false  # pick up ServiceMonitors from any namespace
+
+alertmanager:
+  enabled: true

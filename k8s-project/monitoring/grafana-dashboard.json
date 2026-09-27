@@ -1,0 +1,35 @@
+{
+  "title": "k8s-demo-app Overview",
+  "panels": [
+    {
+      "title": "Request Rate",
+      "type": "graph",
+      "targets": [
+        { "expr": "sum(rate(app_requests_total[5m])) by (endpoint)" }
+      ]
+    },
+    {
+      "title": "Pod CPU Usage",
+      "type": "graph",
+      "targets": [
+        { "expr": "sum(rate(container_cpu_usage_seconds_total{namespace='k8s-demo'}[5m])) by (pod)" }
+      ]
+    },
+    {
+      "title": "Pod Memory Usage",
+      "type": "graph",
+      "targets": [
+        { "expr": "sum(container_memory_working_set_bytes{namespace='k8s-demo'}) by (pod)" }
+      ]
+    },
+    {
+      "title": "Replica Count",
+      "type": "stat",
+      "targets": [
+        { "expr": "kube_deployment_status_replicas{deployment='k8s-demo-app'}" }
+      ]
+    }
+  ],
+  "schemaVersion": 39,
+  "version": 1
+}

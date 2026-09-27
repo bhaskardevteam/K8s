@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: k8s-demo-app
+  namespace: k8s-demo
+  labels:
+    release: prometheus   # must match the Prometheus Operator's selector
+spec:
+  selector:
+    matchLabels:
+      app: k8s-demo-app
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
